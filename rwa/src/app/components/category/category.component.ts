@@ -1,6 +1,9 @@
 import { CategoryService } from './../../services/category.service';
 import { Category } from './../../model/category';
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Observable } from 'rxjs/Observable';
+import { AppStore } from 'app/store/app-store';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'category-list',
@@ -12,15 +15,18 @@ export class CategoryComponent implements OnInit, OnDestroy{
 
     //Properties
     categories: Category[];
+    categoriesObs: Observable<Category[]>;
     sub:any;
 
     /**
      *
      */
-    constructor(private categoryService: CategoryService) {}
+    constructor(private store: Store<AppStore>) {
+        this.categoriesObs = store.select(s=>s.categories);
+    }
 
     ngOnInit() {
-        this.sub = this.categoryService.getCategories()
+        this.sub = this.categoriesObs
                         .subscribe(categories => this.categories = categories);
     }
 
