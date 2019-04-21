@@ -24,7 +24,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
     }
     ngOnDestroy() {
         if( this.sub)
-            this.sub.unsubcribe();
+            this.sub.unsubscribe();
     }
 
 }  

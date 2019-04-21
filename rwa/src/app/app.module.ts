@@ -1,11 +1,18 @@
+import { QuestionAddUpdateComponent } from './components/question/question-add-update.component';
+
 import { TagComponent } from './components/tag/tag.component';
 import { QuestionComponent } from './components/question/question.component';
 import { CategoryComponent } from './components/category/category.component';
 import { TagService } from './services/tag.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+import 'hammerjs';
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
 
 import { AppComponent } from './components/app/app.component';
 import { CategoryService } from './services/category.service';
@@ -17,15 +24,25 @@ import { routes } from './app.route';
     AppComponent,
     CategoryComponent,
     QuestionComponent,
-    TagComponent
+    TagComponent,
+    QuestionAddUpdateComponent
   ],
   imports: [
     BrowserModule,
+
+    //Forms
     FormsModule,
+    ReactiveFormsModule,
+
     HttpModule,
 
     //Router
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+
+    //Material
+    MaterialModule.forRoot(),
+    //Flex
+    FlexLayoutModule.forRoot()
   ],
   providers: [
     //Services
