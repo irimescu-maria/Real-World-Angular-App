@@ -1,35 +1,35 @@
-import { Category } from './../model/category';
-import { element } from 'protractor';
-import { CategoryService } from './category.service';
 import { Question } from './../model/question';
-import { Http } from '@angular/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs/Observable';
+import { AngularFire } from 'angularfire2';
+import { AppStore } from 'app/store/app-store';
+import { QuestionActions } from 'app/store/actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class QuestionService {
 
-    private _serviceUrl = "  http://localhost:3000/questions";
-
     /**
      *
      */
-    constructor(private http: Http,
-                private categoryService: CategoryService) {}
+    constructor(private af: AngularFire,
+                private store: Store<AppStore>,
+                private questionActions: QuestionActions) {}
 
     //get all the questions
     getQuestions(): Observable<Question[]> {
-
-        let url = this._serviceUrl;
-  
-        return this.http.get(url)
-                  .map(res => res.json());
+        return this.af.database.list('/questions');
     }
 
-    saveQuestion(question: Question): Observable<Question> {
-      let url = this._serviceUrl;
-
-      return this.http.post(url, question)
-              .map(res => res.json());
+    saveQuestion(question: Question) {
+        this.af.database.list('/questions').push(question)
+            .then( (ret) => {
+                this.store.dispatch(this.questionActions.addQuestionSuccess());
+            },
+                (error: Error) => {
+                    //error
+                    console.log(error);
+                }
+            );
     }
 }

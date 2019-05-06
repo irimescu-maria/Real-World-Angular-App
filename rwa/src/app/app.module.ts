@@ -1,16 +1,17 @@
 import { TagEffects } from './store/effects/tag.effects';
 import { QuestionActions } from './store/actions/question.actions';
 import { QuestionEffects } from './store/effects/question.effects';
+import { AngularFireModule } from 'angularfire2';
+import { routes } from './app.route';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { routes } from './app.route';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-
 import 'hammerjs';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -28,6 +29,16 @@ import { TagService } from './services/tag.service';
 
 import {default as reducer} from './store/app-store';
 import { TagActions } from './store/actions';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBzNTYv2oy8o6de_B5EzQ8AYb7shhXfgVU",
+  authDomain: "rwa-trivia-566e5.firebaseapp.com",
+  databaseURL: "https://rwa-trivia-566e5.firebaseio.com",
+  projectId: "rwa-trivia-566e5",
+  storageBucket: "rwa-trivia-566e5.appspot.com",
+  messagingSenderId: "482432342832",
+  appId: "1:482432342832:web:7e7e820cfafabc62"
+};
 
 @NgModule({
   declarations: [
@@ -65,7 +76,10 @@ import { TagActions } from './store/actions';
     //DevTools 
     StoreDevtoolsModule.instrumentOnlyWithExtension({
       maxAge: 20
-    })
+    }),
+
+    //Firebase
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [
     //Services
