@@ -1,22 +1,21 @@
-import { Http } from '@angular/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs/Observable';
+import { AngularFire } from 'angularfire2';
+import '../rxjs-extensions';
 
+import 'rxjs/add/operator/map';
 @Injectable()
 export class TagService {
-
-    private _serviceUrl = 'http://localhost:3000/tagList';
 
     /**
      *
      */
-    constructor(private http: Http) {}
+    constructor(private af: AngularFire) {}
 
     //get all the tags
     getTags(): Observable<string[]> {
-        let url = this._serviceUrl;
 
-        return this.http.get(url)
-                    .map(res => res.json());
+        return this.af.database.list('/tagList')
+                    .pipe(t => t.map(a => a["$value"]));
     }
 }

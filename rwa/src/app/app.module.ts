@@ -28,7 +28,10 @@ import { CategoryComponent } from './components/category/category.component';
 import { TagService } from './services/tag.service';
 
 import {default as reducer} from './store/app-store';
-import { TagActions } from './store/actions';
+import { TagActions, UserActions } from './store/actions';
+import { AuthenticationService } from './services/authentication.service';
+import { LoginComponent } from './components/login/login.component';
+import { PasswordAuthComponent } from './components/login/password-auth.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBzNTYv2oy8o6de_B5EzQ8AYb7shhXfgVU",
@@ -46,7 +49,14 @@ export const firebaseConfig = {
     CategoryComponent,
     QuestionComponent,
     TagComponent,
-    QuestionAddUpdateComponent
+    QuestionAddUpdateComponent,
+    LoginComponent,
+    PasswordAuthComponent,
+
+  ],
+  entryComponents: [
+    LoginComponent,
+    PasswordAuthComponent
   ],
   imports: [
     BrowserModule,
@@ -86,11 +96,13 @@ export const firebaseConfig = {
     CategoryService,
     QuestionService,
     TagService,
+    AuthenticationService,
 
     //Actions
     CategoryActions,
     QuestionActions,
-    TagActions
+    TagActions,
+    UserActions
   ],
   bootstrap: [AppComponent]
 })
