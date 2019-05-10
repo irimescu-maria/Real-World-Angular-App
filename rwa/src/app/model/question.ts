@@ -11,11 +11,11 @@ export class Question {
     categoryIds: number[];
     published: boolean;
     status: QuestionStatus;
-    createdBy?: string;
+    created_uid?: string;
     createdOn: Date;
     lastUpdatedBy?: string;
     lastUpdatedOn?: Date;
-    approvedBy1?: string;
+    approved_uid?: string;
     approvedOn?: Date;
 
     /**
@@ -27,6 +27,7 @@ export class Question {
         this.ordered = false;
         this.tags = [];
         this.categories = [];
+        this.categoryIds = [];
         this.published = false;
         this.status = QuestionStatus.SAVED;
     }

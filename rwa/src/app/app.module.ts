@@ -23,15 +23,21 @@ import { CategoryActions } from './store/actions/category.actions';
 import { CategoryEffects } from './store/effects/category.effects';
 import { QuestionAddUpdateComponent } from './components/question/question-add-update.component';
 import { TagComponent } from './components/tag/tag.component';
-import { QuestionComponent } from './components/question/question.component';
+import { QuestionComponent } from './components/question/questions.component';
 import { CategoryComponent } from './components/category/category.component';
 import { TagService } from './services/tag.service';
 
 import {default as reducer} from './store/app-store';
-import { TagActions, UserActions } from './store/actions';
+import { TagActions, UserActions, UIStateActions } from './store/actions';
 import { AuthenticationService } from './services/authentication.service';
 import { LoginComponent } from './components/login/login.component';
 import { PasswordAuthComponent } from './components/login/password-auth.component';
+import { AuthGuard } from './services';
+import { AdminComponent } from './components/admin/admin.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MyQuestionsComponent } from './components/question/my-questions.component';
+import { AdminQuestionsComponent } from './components/admin/admin-questions.component';
+import { UserEffects } from './store/effects';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBzNTYv2oy8o6de_B5EzQ8AYb7shhXfgVU",
@@ -52,7 +58,10 @@ export const firebaseConfig = {
     QuestionAddUpdateComponent,
     LoginComponent,
     PasswordAuthComponent,
-
+    AdminComponent,
+    DashboardComponent,
+    MyQuestionsComponent,
+    AdminQuestionsComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -82,6 +91,7 @@ export const firebaseConfig = {
     EffectsModule.run(CategoryEffects),
     EffectsModule.run(QuestionEffects),
     EffectsModule.run(TagEffects),
+    EffectsModule.run(UserEffects),
 
     //DevTools 
     StoreDevtoolsModule.instrumentOnlyWithExtension({
@@ -97,12 +107,14 @@ export const firebaseConfig = {
     QuestionService,
     TagService,
     AuthenticationService,
+    AuthGuard,
 
     //Actions
     CategoryActions,
     QuestionActions,
     TagActions,
-    UserActions
+    UserActions,
+    UIStateActions
   ],
   bootstrap: [AppComponent]
 })
